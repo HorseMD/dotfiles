@@ -20,7 +20,8 @@ set omnifunc=syntaxcomplete#Complete
 set foldmethod=marker
 set number
 set cursorline
-set visualbell
+set noerrorbells
+set vb t_vb=
 set title
 set expandtab "spaces instead of tabs
 set tabstop=4 "4 spaces per tab
@@ -50,5 +51,8 @@ augroup FastEscape
     au InsertLeave * set timeoutlen=1000
 augroup END
 " }}}
+" }}}
+" {{{ Filetype-specific Settings
+autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
 " }}}
 
