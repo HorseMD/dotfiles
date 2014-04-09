@@ -11,11 +11,15 @@ Bundle "mattn/emmet-vim"
 Bundle "tpope/vim-markdown"
 Bundle "scrooloose/nerdtree"
 Bundle "tpope/vim-endwise"
+Bundle "withgod/vim-sourcepawn"
+Bundle "tomasr/molokai"
 " }}}
 " {{{ Basic Settings
 filetype plugin indent on
 
 set omnifunc=syntaxcomplete#Complete
+
+set cm=blowfish "more secture crypto
 
 set foldmethod=marker
 set number
@@ -51,6 +55,9 @@ augroup FastEscape
     au InsertLeave * set timeoutlen=1000
 augroup END
 " }}}
+" SourcePawn {{{
+" quickfix
+au FileType sourcepawn setlocal makeprg=/media/Storage/Gaming/Linux/hlserver/tf2/tf/addons/sourcemod/scripting/spcomp\ %
 " }}}
 " {{{ Filetype-specific Settings
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
