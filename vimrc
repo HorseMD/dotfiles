@@ -6,31 +6,32 @@ let mapleader=" "
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+Bundle "Raimondi/delimitMate"
 Bundle "bling/vim-airline"
 Bundle "kien/ctrlp.vim"
-Bundle "tpope/vim-markdown"
-Bundle "tpope/vim-endwise"
-Bundle "tomasr/molokai"
 Bundle "majutsushi/tagbar"
 Bundle "skammer/vim-css-color"
-Bundle "Raimondi/delimitMate"
+Bundle "tomasr/molokai"
+Bundle "tpope/vim-endwise"
+Bundle "tpope/vim-markdown"
+Bundle "tpope/vim-rails"
 Bundle "tpope/vim-vinegar"
 " }}}
 " {{{ Basic Settings
 filetype plugin indent on
 
-set omnifunc=syntaxcomplete#Complete
-set foldmethod=marker
-set number
 set cursorline
-set noerrorbells
-set vb t_vb=
-set title
 set expandtab "spaces instead of tabs
-set tabstop=4 "4 spaces per tab
+set foldmethod=marker
+set noerrorbells
+set number
+set omnifunc=syntaxcomplete#Complete
 set shiftwidth=4 "4 spaces for indentation
+set tabstop=4 "4 spaces per tab
+set title
+set vb t_vb=
 
-let g:netrw_liststyle=3
+let g:netrw_liststyle=3 "display files as a tree
 
 set nobackup
 set noswapfile
@@ -43,13 +44,13 @@ augroup END
 " }}}
 " }}}
 " {{{ Aesthetics
-set t_Co=256
 colorscheme molokai
 set background=dark
-set ruler
 set colorcolumn=80
 set guifont=Inconsolata\ for\ Powerline\ 12
 set nowrap
+set ruler
+set t_Co=256
 " }}}
 " {{{ Plugin Settings
 " {{{ vim-airline
@@ -62,10 +63,6 @@ augroup FastEscape
     au InsertEnter * set timeoutlen=0
     au InsertLeave * set timeoutlen=1000
 augroup END
-" }}}
-" SourcePawn {{{
-" quickfix
-au FileType sourcepawn setlocal makeprg=/media/Storage/Gaming/Linux/hlserver/tf2/tf/addons/sourcemod/scripting/spcomp\ %
 " }}}
 " }}}
 " {{{ Functions
