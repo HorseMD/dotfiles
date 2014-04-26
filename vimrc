@@ -3,19 +3,21 @@ filetype off
 let mapleader=" "
 
 " {{{ Vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
-Bundle "Raimondi/delimitMate"
-Bundle "bling/vim-airline"
-Bundle "kien/ctrlp.vim"
-Bundle "majutsushi/tagbar"
-Bundle "skammer/vim-css-color"
-Bundle "tomasr/molokai"
-Bundle "tpope/vim-endwise"
-Bundle "tpope/vim-markdown"
-Bundle "tpope/vim-rails"
-Bundle "tpope/vim-vinegar"
+Plugin 'Raimondi/delimitMate'
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'skammer/vim-css-color'
+Plugin 'tomasr/molokai'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-vinegar'
+
+call vundle#end()
 " }}}
 " {{{ Basic Settings
 filetype plugin indent on
