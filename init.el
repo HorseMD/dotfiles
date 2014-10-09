@@ -7,16 +7,6 @@
 ;;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun install-unless-exist (package)
-  "Installs the given package, unless it's already installed."
-  (unless (package-installed-p package)
-    (package-install package)))
-
-(defun setup-package (package)
-  "Install (if necessary) and require the given package."
-  (install-unless-exist package)
-  (require package))
-
 (defun font-exists-p (font)
   "Check if the given font exists on this system"
   (if (null (x-list-fonts font))
@@ -27,45 +17,25 @@
 ;;; Package Management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'whitespace)
+(setq package-list '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
+				   haskell-mode markdown-mode flycheck))
 
-;; load the package manager
+(require 'whitespace)
 (require 'package)
 (add-to-list 'package-archives 
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
+		 
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
 
-;; vim-like text editing with evil
-;(setup-package 'evil)
-;(evil-mode t)
-
-;; monokai theme
-(setup-package 'monokai-theme)
+(global-pretty-mode t)
+(nyan-mode)
 (load-theme 'monokai t)
 
-;; colorize code delimiters
-(setup-package 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
-;; elfeed feed reader
-(setup-package 'elfeed)
-(global-set-key (kbd "C-x w") 'elfeed)
-(setq elfeed-feeds
-      '("http://reddit.com/r/emacs/.rss"
-	"http://xkcd.com/rss.xml"))
-
-;; pretty-mode for displaying parts of the buffer as pretty symbols
-(setup-package 'pretty-mode)
-(global-pretty-mode t)
-
-(setup-package 'nyan-mode)
-(nyan-mode)
-
-(setup-package 'haskell-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-
-;; flycheck syntax checking
-(setup-package 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
