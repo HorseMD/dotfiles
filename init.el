@@ -1,5 +1,10 @@
+;;; init.el --- Horse M.D.'s Emacs init file.
+
+;;; Commentary:
+;; Just your everyday init file for Emacs.
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Helper Functions
+;;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun install-unless-exist (package)
@@ -12,8 +17,14 @@
   (install-unless-exist package)
   (require package))
 
+(defun font-exists-p (font)
+  "Check if the given font exists on this system"
+  (if (null (x-list-fonts font))
+      nil
+    t))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Package Management
+;;; Package Management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'whitespace)
@@ -43,31 +54,48 @@
       '("http://reddit.com/r/emacs/.rss"
 	"http://xkcd.com/rss.xml"))
 
+;; pretty-mode for displaying parts of the buffer as pretty symbols
+(setup-package 'pretty-mode)
+(global-pretty-mode t)
+
+(setup-package 'nyan-mode)
+(nyan-mode)
+
+(setup-package 'haskell-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+
+;; flycheck syntax checking
+(setup-package 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Keybindings
+;;; Keybindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (global-set-key (kbd "C-c C-w") 'whitespace-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Misc Settings
+;;; Misc Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; line numbers!
 (global-linum-mode t)
-;; hide the menu bar
-(menu-bar-mode -1)
-;; hide the toolbar
-(tool-bar-mode -1)
+;; no scrollbars, toolbars or menubars
+(dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
+  (when (fboundp mode) (funcall mode -1)))
 ;; set the font to something a little nicer ^^
-(set-default-font "M+ 1mn Medium-11")
+(if (font-exists-p "M+ 1mn Medium")
+    (set-frame-font "M+ 1mn Medium-11"))
 ;; no wrap
 (setq-default truncate-lines t)
 ;; show matching parentheses
 (show-paren-mode 1)
-(setq show-paren-delay 0)
 ;; cursor settings
 (global-hl-line-mode)
+;; font lock
+(global-font-lock-mode 1)
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
