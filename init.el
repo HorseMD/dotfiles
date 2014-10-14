@@ -18,23 +18,26 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq package-list '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
-				   haskell-mode markdown-mode flycheck))
+				   haskell-mode markdown-mode flycheck
+				   json-mode))
 
 (require 'whitespace)
 (require 'package)
-(add-to-list 'package-archives 
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+			 ("marmalade" . "http://marmalade-repo.org/packages/")
+			 ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 		 
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
 
-(global-pretty-mode t)
 (nyan-mode)
 (load-theme 'monokai t)
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'haskell-mode-hook 'turn-on-pretty-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 

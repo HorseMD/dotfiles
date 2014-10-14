@@ -18,7 +18,6 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-vinegar'
-Plugin 'dag/vim2hs'
 
 call vundle#end()
 " }}}
