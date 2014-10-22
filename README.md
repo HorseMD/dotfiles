@@ -1,3 +1,4 @@
 #Dotfiles
-Probably only really going to be my vimrc in here.
+
+Simply a place to dump my dotfiles. Tries to be as platform-agnostic as possible.
 
