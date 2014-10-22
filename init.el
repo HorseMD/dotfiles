@@ -7,11 +7,10 @@
 ;;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun font-exists-p (font)
+(defun font-exists (font)
   "Check if the given font exists on this system"
-  (if (null (x-list-fonts font))
-      nil
-    t))
+  (x-list-fonts font)
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Package Management
@@ -19,7 +18,7 @@
 
 (setq package-list '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
 				   haskell-mode markdown-mode flycheck
-				   json-mode))
+				   json-mode php-mode))
 
 (require 'whitespace)
 (require 'package)
@@ -28,10 +27,22 @@
 			 ("marmalade" . "http://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
-		 
+
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
+
+;; Slime needs to be cloned into .emacs.d/git/ first.
+;; git clone https://github.com/slime/slime.git ~/.emacs.d/git/slime/
+(add-to-list 'load-path "~/.emacs.d/git/slime")
+(require 'slime-autoloads)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Package Settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq inferior-lisp-program "/usr/bin/clisp")
+(setq slime-contribs '(slime-fancy))
 
 (nyan-mode)
 (load-theme 'monokai t)
@@ -46,6 +57,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (global-set-key (kbd "C-c C-w") 'whitespace-mode)
+(global-set-key (kbd "C-c C-n") 'nyan-mode)
+(global-set-key (kbd "C-c C-p") 'pretty-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Misc Settings
@@ -57,7 +70,7 @@
 (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
 ;; set the font to something a little nicer ^^
-(if (font-exists-p "M+ 1mn Medium")
+(if (font-exists "M+ 1mn Medium")
     (set-frame-font "M+ 1mn Medium-11"))
 ;; no wrap
 (setq-default truncate-lines t)
