@@ -16,7 +16,7 @@ myManageHook = composeAll
 main = do
         keyLayout <- spawn "setxkbmap -layout gb"
         conky     <- spawn "conky" --should probably check conky is running first
-        mobar     <- spawn "xmobar"
+        mobar     <- spawn "xmobar ~/dotfiles/xmobarrc"
 
 	xmonad $ defaultConfig
                    {
