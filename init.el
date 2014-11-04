@@ -16,33 +16,32 @@
 ;;; Package Management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq package-list '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
+(defvar package-list '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
 				   haskell-mode markdown-mode flycheck
 				   json-mode php-mode))
 
 (require 'whitespace)
 (require 'package)
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+(defvar package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+			 ("melpa-stable" . "http://stable.melpa.net/packages/")))
 (package-initialize)
 
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
 
-;; Slime needs to be cloned into .emacs.d/git/ first.
-;; git clone https://github.com/slime/slime.git ~/.emacs.d/git/slime/
-(add-to-list 'load-path "~/.emacs.d/git/slime")
-(require 'slime-autoloads)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Package Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq inferior-lisp-program "/usr/bin/clisp")
-(setq slime-contribs '(slime-fancy))
+;; git clone https://github.com/slime/slime.git ~/.emacs.d/git/slime/
+(when (executable-find "clisp")
+  (add-to-list 'load-path "~/.emacs.d/git/slime")
+  (require 'slime-autoloads)
+  (setq inferior-lisp-program (executable-find "clisp"))
+  (setq slime-contribs '(slime-fancy)))
 
 (nyan-mode)
 (load-theme 'monokai t)
