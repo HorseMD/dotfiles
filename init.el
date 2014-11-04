@@ -9,8 +9,7 @@
 
 (defun font-exists (font)
   "Check if the given font exists on this system"
-  (x-list-fonts font)
-  )
+  (x-list-fonts font))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Package Management
@@ -71,7 +70,7 @@
 (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
 ;; set the font to something a little nicer ^^
-(if (font-exists "M+ 1mn Medium")
+(when (font-exists "M+ 1mn Medium")
     (set-frame-font "M+ 1mn Medium-11"))
 ;; no wrap
 (setq-default truncate-lines t)
@@ -82,4 +81,3 @@
 ;; font lock
 (global-font-lock-mode 1)
 (setq inhibit-splash-screen t)
-(setq inhibit-startup-message t)
