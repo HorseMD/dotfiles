@@ -10,22 +10,22 @@
 (defun font-exists (font)
   "Check if the given font exists on this system"
   (x-list-fonts font)
-)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Package Management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defvar package-list '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
-				   haskell-mode markdown-mode flycheck
-				   json-mode php-mode))
+				     haskell-mode markdown-mode flycheck
+				     json-mode php-mode))
 
 (require 'whitespace)
 (require 'package)
 
 (defvar package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("melpa-stable" . "http://stable.melpa.net/packages/")))
+			   ("marmalade" . "http://marmalade-repo.org/packages/")
+			   ("melpa-stable" . "http://stable.melpa.net/packages/")))
 (package-initialize)
 
 (dolist (package package-list)
