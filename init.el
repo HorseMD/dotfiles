@@ -45,18 +45,21 @@
 (nyan-mode)
 (load-theme 'monokai t)
 
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'haskell-mode-hook 'turn-on-pretty-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+(add-hook 'haskell-mode-hook 'turn-on-pretty-mode)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Keybindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key (kbd "C-c C-w") 'whitespace-mode)
+(global-set-key (kbd "C-c C-l") 'global-linum-mode)
 (global-set-key (kbd "C-c C-n") 'nyan-mode)
 (global-set-key (kbd "C-c C-p") 'pretty-mode)
+(global-set-key (kbd "C-c C-w") 'whitespace-mode)
+(global-set-key (kbd "C-c C-d") 'delete-trailing-whitespace)
 
 (global-unset-key (kbd "C-z"))
 
@@ -64,8 +67,6 @@
 ;;; Misc Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; line numbers!
-(global-linum-mode t)
 ;; no scrollbars, toolbars or menubars
 (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
@@ -81,3 +82,5 @@
 ;; font lock
 (global-font-lock-mode 1)
 (setq inhibit-splash-screen t)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
