@@ -11,7 +11,7 @@ myManageHook = composeAll
 
 main = do
         keyLayout <- spawn "setxkbmap -layout gb"
-        mobar     <- spawn "xmobar ~/dotfiles/xmobarrc"
+        mobar     <- spawn "xmobar ~/dotfiles/xmonad/xmobarrc"
         bkgrnd    <- spawn "feh --bg-fill -g 1920x1080 ~/Pictures/wallpapers/sakomoto.png"
 
 	xmonad $ defaultConfig
