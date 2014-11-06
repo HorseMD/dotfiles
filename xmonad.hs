@@ -6,17 +6,13 @@ import qualified XMonad.StackSet as W
 
 myManageHook = composeAll
     [ (role =? "gimp-toolbox" <||> role =? "gimp-image-window") --> (ask >>= doF . W.sink)
-    -- Note: hooks earlier in this list override later ones, so put the
-    -- role hooks earlier than 'className =? "Gimp" ...' if you use both.
- 
-    -- other skipped manageHooks...
     ]
   where role = stringProperty "WM_WINDOW_ROLE"
 
 main = do
         keyLayout <- spawn "setxkbmap -layout gb"
-        conky     <- spawn "conky" --should probably check conky is running first
         mobar     <- spawn "xmobar ~/dotfiles/xmobarrc"
+        bkgrnd    <- spawn "feh --bg-fill -g 1920x1080 ~/Pictures/wallpapers/sakomoto.png"
 
 	xmonad $ defaultConfig
                    {
