@@ -82,5 +82,6 @@
 ;; font lock
 (global-font-lock-mode 1)
 (setq inhibit-splash-screen t)
+;; re-enabled commands
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
