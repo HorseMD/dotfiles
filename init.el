@@ -72,7 +72,7 @@
   (when (fboundp mode) (funcall mode -1)))
 ;; set the font to something a little nicer when using graphical system
 (when (and (display-graphic-p) (font-exists "M+ 1mn Medium")))
-    (set-frame-font "M+ 1mn Medium-11")
+(set-frame-font "M+ 1mn Medium-11")
 ;; no wrap
 (setq-default truncate-lines t)
 ;; show matching parentheses
