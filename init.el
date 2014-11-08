@@ -24,12 +24,17 @@
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("melpa-stable" . "http://stable.melpa.org/packages/")))
+			 ("melpa" . "http://melpa.org/packages/")))
+
 (package-initialize)
+
+(unless (file-exists-p package-user-dir)
+    (package-refresh-contents))
 
 (dolist (package package-list)
   (unless (package-installed-p package)
-    (package-install package)))
+    (when (y-or-n-p (format "You are missing %s. Install it? " package))
+      (package-install package))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Package Settings
@@ -77,6 +82,8 @@
 (setq-default truncate-lines t)
 ;; show matching parentheses
 (show-paren-mode 1)
+;; insert "the other delimiter" everywhere
+(electric-pair-mode 1)
 ;; cursor settings
 (global-hl-line-mode)
 ;; font lock
