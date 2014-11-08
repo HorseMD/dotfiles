@@ -7,7 +7,7 @@ export PS1="\[\e[00;33m\]\u \[\e[0m\]\[\e[00;37m\]at \[\e[0m\]\[\e[00;35m\]\h \[
 shopt -s histappend
 export HISTCONTROL=ignoredups
 export HISTFILESIZE=10000
-export HISTIGNORE="ls*:clear"
+export HISTIGNORE="ls*:clear:exit"
 export HISTSIZE=1000
 
 if [ -n "$DISPLAY" -a "$TERM" == "xterm" ]; then
