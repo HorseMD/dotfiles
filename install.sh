@@ -1,10 +1,12 @@
 #!/bin/bash
 
+# This should be changed dotfiles was cloned outside the root of your home directory!
 dotfiles=~/dotfiles
 # base directory to place backups in
 backup_dir=$dotfiles/dotfiles_bkp
 
 # Create the folder if it doesn't exist. Also echo this.
+# $1 = file/path/here
 make_backupdir() {
     if [ ! -d $1 ]; then
 	echo "* Creating backup directory $1"
@@ -38,3 +40,5 @@ setup_dotfile() {
 for dotfile in vimrc bashrc emacs.d/init.el xmonad/xmonad.hs; do
     setup_dotfile $dotfile
 done
+
+echo "Done."
