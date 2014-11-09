@@ -126,7 +126,3 @@ vnoremap <leader>t :Tabularize /^\s*\S\+\zs/l0c1l0<CR>
 " Remove trailing spaces when the file is saved.
 autocmd BufWritePre * :%s/\s\+$//e
 " }}}
-
-let g:haskell_conceal_wide=1
-set conceallevel=2
-
