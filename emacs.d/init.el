@@ -17,7 +17,7 @@
 
 (defvar package-list '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
 				     haskell-mode markdown-mode flycheck
-				     json-mode php-mode))
+				     json-mode php-mode web-mode))
 
 (require 'whitespace)
 (require 'package)
@@ -56,6 +56,8 @@
 (add-hook 'haskell-mode-hook 'turn-on-pretty-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Keybindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -89,6 +91,9 @@
 ;; font lock
 (global-font-lock-mode 1)
 (setq inhibit-splash-screen t)
+;; use spaces, not tabs!
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4)
 ;; re-enabled commands
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
