@@ -15,23 +15,20 @@
 ;;; Package Management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar package-list '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
-				     haskell-mode markdown-mode flycheck
-				     json-mode php-mode web-mode))
-
-(require 'whitespace)
-(require 'package)
+(defvar custom-packages '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
+                                        haskell-mode markdown-mode flycheck
+                                        json-mode php-mode web-mode))
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("melpa" . "http://melpa.org/packages/")))
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
 
 (package-initialize)
 
 (unless (file-exists-p package-user-dir)
     (package-refresh-contents))
 
-(dolist (package package-list)
+(dolist (package custom-packages)
   (unless (package-installed-p package)
     (when (y-or-n-p (format "You are missing %s. Install it? " package))
       (package-install package))))
@@ -49,6 +46,7 @@
 
 (nyan-mode)
 (load-theme 'monokai t)
+(ido-mode t)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
@@ -57,6 +55,7 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.htm?\\'" . web-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Keybindings
