@@ -11,4 +11,6 @@ Simply a place to dump my dotfiles.
 A backup of any existing dotfiles will be placed in the `dotfiles_bkp` folder which will be
 created in the same directory by `install.sh`, should it need to.
 
+##TODO
 
+1. Separate `xmobarrc` file for laptops (or rather, devices with batteries).
