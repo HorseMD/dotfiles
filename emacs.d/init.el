@@ -13,18 +13,22 @@
 
 (defun header-ificate (start end)
   "Insert enough -'s either side of the text inside region to make the line 80 chars long."
-  (interactive "r")
-  (let* ((beginning (- start (line-beginning-position)))
-        (offset (/ (- (- 79 beginning) (- end start)) 2)))
-    (goto-char end)
-    (insert-char ?\s)
-    (insert-char ?- offset)
-    (goto-char start)
-    (insert-char ?- offset)
-    (insert-char ?\s)
-    )
-  (move-end-of-line 1)
-  )
+  (interactive (if (use-region-p)
+                   (list (region-beginning) (region-end))
+                 (list nil nil)))
+  (if (and start end)
+      (progn
+        (let* ((beginning (- start (line-beginning-position)))
+               (offset (/ (- (- 79 beginning) (- end start)) 2)))
+          (goto-char end)
+          (insert-char ?\s)
+          (insert-char ?- offset)
+          (goto-char start)
+          (insert-char ?- offset)
+          (insert-char ?\s))
+        (move-end-of-line 1))
+    (message "Region must contain text!")
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Package Management
