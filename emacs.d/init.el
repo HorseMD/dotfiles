@@ -11,6 +11,21 @@
   "Check if the given font exists on this system"
   (x-list-fonts font))
 
+(defun header-ificate (start end)
+  "Insert enough -'s either side of the text inside region to make the line 80 chars long."
+  (interactive "r")
+  (let* ((beginning (- start (line-beginning-position)))
+        (offset (/ (- (- 79 beginning) (- end start)) 2)))
+    (goto-char end)
+    (insert-char ?\s)
+    (insert-char ?- offset)
+    (goto-char start)
+    (insert-char ?- offset)
+    (insert-char ?\s)
+    )
+  (move-end-of-line 1)
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Package Management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -43,6 +58,10 @@
   (require 'slime-autoloads)
   (setq inferior-lisp-program (executable-find "clisp"))
   (setq slime-contribs '(slime-fancy)))
+
+(when (executable-find "gforth")
+  (unless (package-installed-p 'forth)
+  (load  "/usr/share/emacs/site-lisp/gforth/gforth.el")))
 
 (nyan-mode)
 (load-theme 'monokai t)
