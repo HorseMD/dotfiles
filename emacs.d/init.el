@@ -19,7 +19,8 @@
   (if (and start end)
       (progn
         (let* ((beginning (- start (line-beginning-position)))
-               (offset (/ (- (- 79 beginning) (- end start)) 2)))
+               (numchars (- 80 (mod 2 (- end beginning))))
+               (offset (/ (- (- numchars beginning) (- end start)) 2)))
           (goto-char end)
           (insert-char ?\s)
           (insert-char ?- offset)
