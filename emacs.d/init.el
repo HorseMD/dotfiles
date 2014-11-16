@@ -11,6 +11,12 @@
   "Check if the given font exists on this system"
   (x-list-fonts font))
 
+(defun set-font (font)
+  "Set the font only if we're in a graphical environment and it exists."
+  (interactive)
+  (when (and (display-graphic-p) (font-exists font))
+    (set-frame-font font)))
+
 (defun header-ificate (start end)
   "Insert enough -'s either side of the text inside region to make the line 80 chars long."
   (interactive (if (use-region-p)
@@ -28,8 +34,7 @@
           (insert-char ?- offset)
           (insert-char ?\s))
         (move-end-of-line 1))
-    (message "Region must contain text!")
-    ))
+    (message "Region must contain text!")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Package Management
@@ -37,7 +42,7 @@
 
 (defvar custom-packages '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
                                         haskell-mode markdown-mode flycheck
-                                        json-mode php-mode web-mode))
+                                        json-mode php-mode web-mode moe-theme))
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -69,7 +74,8 @@
   (load  "/usr/share/emacs/site-lisp/gforth/gforth.el")))
 
 (nyan-mode)
-(load-theme 'monokai t)
+;(load-theme 'monokai t)
+(require 'moe-theme-switcher)
 (ido-mode t)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -79,7 +85,6 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.htm?\\'" . web-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Keybindings
@@ -101,12 +106,13 @@
 (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
 ;; set the font to something a little nicer when using graphical system
-(when (and (display-graphic-p) (font-exists "M+ 1mn Medium"))
-  (set-frame-font "M+ 1mn Medium-11"))
+;(set-font "M+ 1mn Medium")
+(set-font "CamingoCode-10")
 ;; no wrap
 (setq-default truncate-lines t)
 ;; show matching parentheses
 (show-paren-mode 1)
+(setq show-paren-style 'expression)
 ;; insert "the other delimiter" everywhere
 (electric-pair-mode 1)
 ;; cursor settings
