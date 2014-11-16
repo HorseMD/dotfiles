@@ -42,7 +42,8 @@
 
 (defvar custom-packages '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
                                         haskell-mode markdown-mode flycheck
-                                        json-mode php-mode web-mode moe-theme))
+                                        json-mode php-mode web-mode moe-theme
+                                        git-gutter))
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -51,7 +52,7 @@
 (package-initialize)
 
 (unless (file-exists-p package-user-dir)
-    (package-refresh-contents))
+  (package-refresh-contents))
 
 (dolist (package custom-packages)
   (unless (package-installed-p package)
@@ -71,12 +72,17 @@
 
 (when (executable-find "gforth")
   (unless (package-installed-p 'forth)
-  (load  "/usr/share/emacs/site-lisp/gforth/gforth.el")))
+    (load  "/usr/share/emacs/site-lisp/gforth/gforth.el")))
+
+(when (executable-find "pandoc")
+  (setq markdown-command "pandoc -f markdown -t html"))
 
 (nyan-mode)
-;(load-theme 'monokai t)
-(require 'moe-theme-switcher)
 (ido-mode t)
+(require 'moe-theme-switcher)
+
+(global-git-gutter-mode 1)
+(setq git-gutter:modified-sign "~")
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
