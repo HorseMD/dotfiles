@@ -43,7 +43,7 @@
 (defvar custom-packages '(monokai-theme rainbow-delimiters pretty-mode nyan-mode
                                         haskell-mode markdown-mode flycheck
                                         json-mode php-mode web-mode moe-theme
-                                        git-gutter))
+                                        git-gutter js2-mode))
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -81,6 +81,9 @@
 (ido-mode t)
 (require 'moe-theme-switcher)
 
+(setq org-log-done t)
+(setq org-agenda-files '("~/org/agenda"))
+
 (global-git-gutter-mode 1)
 (setq git-gutter:modified-sign "~")
 
@@ -101,6 +104,7 @@
 (global-set-key (kbd "C-c C-p") 'pretty-mode)
 (global-set-key (kbd "C-c C-w") 'whitespace-mode)
 (global-set-key (kbd "C-c C-d") 'delete-trailing-whitespace)
+(global-set-key (kbd "C-c C-a") 'org-agenda)
 
 (global-unset-key (kbd "C-z"))
 
