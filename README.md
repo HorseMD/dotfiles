@@ -2,6 +2,19 @@
 
 Simply a place to dump my dotfiles.
 
+##Required Packages
+
+###For Xmonad
+
+* Xmonad
+* Xmonad-contrib
+* Xmobar
+
+###Others
+
+* Emacs
+* GVim / Vim
+
 ##Installation
 
 1. Run `git clone https://github.com/HorseMD/dotfiles.git` to download these dotfiles.
