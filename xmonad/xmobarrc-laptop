@@ -1,0 +1,24 @@
+-- -*- mode: haskell; -*-
+Config { font = "-misc-fixed-*-*-*-10-*-*-*-*-*-*-*"
+, bgColor = "black"
+, fgColor = "grey"
+, position = Top
+, lowerOnStart = True
+, commands = [ Run DynNetwork ["-L","0","-H","32","--normal","purple","--high","red"] 10
+, Run Cpu ["-L","3","-H","50","--normal","purple","--high","red"] 10
+, Run Memory ["-t","Mem: <usedratio>%"] 10
+, Run CoreTemp ["-t","Temp: <core0>C|<core1>C","-L","40","-H","60","--low","purple","--high","red"] 50
+, Run Com "uname" ["-s","-r"] "" 36000
+, Run Date "%a %_d %b %Y %H:%M:%S" "date" 10
+, Run Locks
+, Run Battery ["--template","Battery: <acstatus>"
+              ,"--Low","10","--High","80"
+              ,"--low","red","--normal","purple","--high","purple"
+              ,"--"
+              ,"-o","<left>% (<timeleft>)","-O","Charging","-i","Charged"
+              ] 50
+]
+, sepChar = "%"
+, alignSep = "}{"
+, template = "%cpu% | %memory% | %coretemp% | %battery% | %dynnetwork% }{ %locks% <fc=#ee9a00>%date%</fc> | %uname%"
+}
