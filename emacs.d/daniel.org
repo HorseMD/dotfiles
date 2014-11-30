@@ -1,0 +1,169 @@
+#+TITLE: Emacs Configuration File
+
+* Configuration
+
+Essentially this file takes the place of my original =init.el= file. That file is now only
+used to load /this/ file, via =org-babel-load-file=.
+
+** Setup
+*** Helper functions
+
+Define some helper functions to assist us in configuring Emacs.
+
+#+begin_src emacs-lisp
+(defun font-exists (font)
+  "Check if the given font exists on this system"
+  (x-list-fonts font))
+
+(defun set-font (font)
+  "Set the font only if we're in a graphical environment and it exists."
+  (interactive)
+  (when (and (display-graphic-p) (font-exists font))
+    (set-frame-font font)))
+#+end_src
+
+*** Add directories
+
+I like to keep a directory in =~/.emacs.d= to throw things in to be put in Emacs's load path.
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/autoload")
+#+end_src
+
+*** Add package sources
+
+#+begin_src emacs-lisp
+;; add the repos
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+
+;; reload sources if they don't exist
+(unless (file-exists-p package-user-dir)
+  (package-refresh-contents))
+#+end_src
+
+** Custom Packages
+*** Install
+
+Firstly we define all the packages we want to use, and then loop through them, prompting for
+an installation if necessary.
+
+#+begin_src emacs-lisp
+(defvar custom-packages '(monokai-theme rainbow-delimiters pretty-mode
+                                        nyan-mode haskell-mode markdown-mode
+                                        flycheck json-mode php-mode web-mode
+                                        moe-theme git-gutter js2-mode))
+
+(dolist (package custom-packages)
+  (unless (package-installed-p package)
+    (when (y-or-n-p (format  "You're missing %s. Install it? " package))
+      (package-install package))))
+#+end_src
+
+*** Configure
+
+Configure the installed packages. I usually prefer to stick with default settings for things.
+
+#+begin_src emacs-lisp
+(nyan-mode)
+(ido-mode t)
+(require 'moe-theme-switcher)
+
+(setq org-log-done t)
+(setq org-agenda-files '("~/org/agenda"))
+
+(global-git-gutter-mode 1)
+(setq git-gutter:modified-sign "~")
+#+end_src
+
+*** Extra Configuration
+
+Sometimes we use Emacs on a computer that may not have certain binaries installed;
+this section is for the configuration of those sorts of things, based on the existence
+of those binaries.
+
+#+begin_src emacs-lisp
+;; git clone https://github.com/slime/slime.git ~/.emacs.d/git/slime/
+(when (executable-find "clisp")
+  (add-to-list 'load-path "~/.emacs.d/git/slime")
+  (require 'slime-autoloads)
+  (setq inferior-lisp-program (executable-find "clisp"))
+  (setq slime-contribs '(slime-fancy)))
+
+(when (executable-find "gforth")
+  (unless (package-installed-p 'forth)
+    (load  "/usr/share/emacs/site-lisp/gforth/gforth.el")))
+
+(when (executable-find "pandoc")
+  (setq markdown-command "pandoc -f markdown -t html"))
+#+end_src
+
+** Configuration
+*** Add Hooks
+
+#+begin_src emacs-lisp
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+(add-hook 'haskell-mode-hook 'turn-on-pretty-mode)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+#+end_src
+
+*** File associations
+
+#+begin_src emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+#+end_src
+
+*** Keybindings
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c C-l") 'global-linum-mode)
+(global-set-key (kbd "C-c C-n") 'nyan-mode)
+(global-set-key (kbd "C-c C-p") 'pretty-mode)
+(global-set-key (kbd "C-c C-w") 'whitespace-mode)
+(global-set-key (kbd "C-c C-d") 'delete-trailing-whitespace)
+(global-set-key (kbd "C-c C-a") 'org-agenda)
+
+(global-unset-key (kbd "C-z"))
+#+end_src
+
+** Emacs Settings
+
+General, built-in settings for Emacs.
+
+#+begin_src emacs-lisp
+;; no scrollbars, toolbars or menubars
+(dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
+  (when (fboundp mode) (funcall mode -1)))
+
+;; set the font to something a little nicer when using a graphical system
+(set-font "CamingoCode-10")
+
+;; no wrap
+(setq-default truncate-lines t)
+
+;; show matching parentheses
+(show-paren-mode 1)
+(setq show-paren-style 'expression)
+
+;; insert "the other delimiter" everywhere
+(electric-pair-mode 1)
+
+;; cursor settings
+(global-hl-line-mode)
+
+;; font lock
+(global-font-lock-mode 1)
+
+;; disable the splash screen
+(setq inhibit-splash-screen t)
+
+;; use spaces, not tabs!
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4)
+
+;; re-enabled commands
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+#+end_src

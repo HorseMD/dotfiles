@@ -37,7 +37,7 @@ setup_dotfile() {
     echo "Linked $dotfiles/$1 to ~/.$1\n"
 }
 
-for dotfile in vimrc bashrc emacs.d/init.el xmonad/xmonad.hs; do
+for dotfile in vimrc bashrc emacs.d/init.el emacs.d/daniel.org xmonad/xmonad.hs; do
     setup_dotfile $dotfile
 done
 
