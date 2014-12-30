@@ -1,4 +1,5 @@
 #+TITLE: Emacs Configuration File
+#+OPTIONS: toc:2
 
 * Configuration
 
@@ -52,7 +53,8 @@ an installation if necessary.
 (defvar custom-packages '(monokai-theme rainbow-delimiters pretty-mode
                                         nyan-mode haskell-mode markdown-mode
                                         flycheck json-mode php-mode web-mode
-                                        moe-theme git-gutter js2-mode))
+                                        moe-theme git-gutter js2-mode
+                                        yaml-mode zencoding-mode))
 
 (dolist (package custom-packages)
   (unless (package-installed-p package)
@@ -107,12 +109,14 @@ of those binaries.
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 (add-hook 'haskell-mode-hook 'turn-on-pretty-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'web-mode-hook 'zencoding-mode)
 #+end_src
-
+    
 *** File associations
 
 #+begin_src emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 #+end_src
 
 *** Keybindings
