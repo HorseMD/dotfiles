@@ -72,7 +72,7 @@ Configure the installed packages. I usually prefer to stick with default setting
 (require 'moe-theme-switcher)
 
 (setq org-log-done t)
-(setq org-agenda-files '("~/org/agenda"))
+(setq org-agenda-files '("~/Documents/org/agenda"))
 
 (global-git-gutter-mode 1)
 (setq git-gutter:modified-sign "~")
