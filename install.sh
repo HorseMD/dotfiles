@@ -20,7 +20,7 @@ make_backupdir() {
 # corresponding xmobarrc as this computer's...xmobarrc.
 link_xmobarrc() {
     eval ln -sf $dotfiles/xmonad/xmobarrc-$1 $xmobarfile
-    echo "Using $1 version of xmobarrc."
+    echo "* Using $1 version of xmobarrc."
 }
 
 # Given a file path, link its relevant location in $HOME
@@ -61,8 +61,17 @@ select opt in "${opts[@]}"; do
         1) link_xmobarrc "desktop"; break;;
         2) link_xmobarrc "laptop";  break;;
         3) break;;
-        *) echo "Invalid option, please type 1, 2 or 3."; continue;;
+        *) echo "* Invalid option, please type 1, 2 or 3."; continue;;
     esac
 done
+
+echo "Recompiling xmonad.hs:"
+xmonad --recompile
+
+if [ $? -eq 0 ]; then
+    echo "* Success."
+else
+    echo "* Couldn't recompile; is xmonad installed?"
+fi
 
 echo "Done."
