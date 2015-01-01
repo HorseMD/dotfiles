@@ -1,4 +1,5 @@
 import XMonad
+import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
@@ -10,9 +11,8 @@ myManageHook = composeAll
   where role = stringProperty "WM_WINDOW_ROLE"
 
 main = do
-        keyLayout <- spawn "setxkbmap -layout gb"
-        mobar     <- spawn "xmobar ~/dotfiles/xmonad/xmobarrc"
-        bkgrnd    <- spawn "feh --bg-fill -g 1920x1080 ~/Pictures/wallpapers/sakomoto.png"
+        keyLayout <- spawnPipe "setxkbmap -layout gb"
+        mobar     <- spawnPipe "xmobar ~/dotfiles/xmonad/xmobarrc"
 
 	xmonad $ defaultConfig
                    {
@@ -26,6 +26,7 @@ main = do
 	           } `additionalKeys`
                        [((0, 0x1008FF12), spawn "amixer set Master toggle"),
                         ((0, 0x1008FF11), spawn "amixer set Master 5-"),
-                        ((0, 0x1008FF13), spawn "amixer set Master 5+")
+                        ((0, 0x1008FF13), spawn "amixer set Master 5+"),
+                        ((mod4Mask, xK_l), spawn "xscreensaver-command -lock")
                        ]
 
