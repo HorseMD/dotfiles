@@ -17,7 +17,7 @@ main = do
 	xmonad $ defaultConfig
                    {
                      startupHook = setWMName "LG3D",
-	             terminal    = "gnome-terminal",
+	             terminal    = "st",
 	             modMask     = mod4Mask,
 	             borderWidth = 2,
                      layoutHook  = avoidStruts $ layoutHook defaultConfig,

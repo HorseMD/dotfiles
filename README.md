@@ -31,5 +31,4 @@ created in the same directory by `install.sh`, should it need to.
 
 ##TODO
 
-1. Make `install.sh` ask user which xmobarrc they want to use.
-2. Maybe make `install.sh` check for installed programs (Emacs, etc...)
+1. Maybe make `install.sh` check for installed programs (Emacs, etc...)
