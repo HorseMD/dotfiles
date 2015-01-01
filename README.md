@@ -12,7 +12,6 @@ Simply a place to dump my dotfiles.
 
 ###Others
 
-* Feh
 * Emacs
 * GVim / Vim
 
