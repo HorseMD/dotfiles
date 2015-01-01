@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# This should be changed dotfiles was cloned outside the root of your home directory!
+# This should be changed if dotfiles was cloned outside the root of your home directory!
 dotfiles=~/dotfiles
 # base directory to place backups in
 backup_dir=$dotfiles/dotfiles_bkp
+# path to where xmobarrc will end up, most likely will never need to be changed.
+xmobarfile=$dotfiles/xmonad/xmobarrc
 
 # Create the folder if it doesn't exist. Also echo this.
 # $1 = file/path/here
@@ -12,6 +14,13 @@ make_backupdir() {
 	echo "* Creating backup directory $1"
 	mkdir -p $1
     fi
+}
+
+# Given either desktop or laptop as a parameter, use the
+# corresponding xmobarrc as this computer's...xmobarrc.
+link_xmobarrc() {
+    eval ln -sf $dotfiles/xmonad/xmobarrc-$1 $xmobarfile
+    echo "Using $1 version of xmobarrc."
 }
 
 # Given a file path, link its relevant location in $HOME
@@ -34,11 +43,26 @@ setup_dotfile() {
     fi
 
     ln -s $dotfiles/$1 ~/.$1
-    echo "Linked $dotfiles/$1 to ~/.$1\n"
+    echo "* Linked $dotfiles/$1 to ~/.$1\n"
 }
 
 for dotfile in vimrc bashrc emacs.d/init.el emacs.d/daniel.org xmonad/xmonad.hs; do
     setup_dotfile $dotfile
+done
+
+echo "Choose an xmobar configuration:"
+opts=("Desktop" "Laptop" "Exit")
+PS3="> "
+
+echo $dotfiles/xmonad/xmobarrc-desktop
+
+select opt in "${opts[@]}"; do
+    case "$REPLY" in
+        1) link_xmobarrc "desktop"; break;;
+        2) link_xmobarrc "laptop";  break;;
+        3) break;;
+        *) echo "Invalid option, please type 1, 2 or 3."; continue;;
+    esac
 done
 
 echo "Done."
