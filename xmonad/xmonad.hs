@@ -27,6 +27,6 @@ main = do
                        [((0, 0x1008FF12), spawn "amixer set Master toggle"),
                         ((0, 0x1008FF11), spawn "amixer set Master 5-"),
                         ((0, 0x1008FF13), spawn "amixer set Master 5+"),
-                        ((mod4Mask, xK_l), spawn "xscreensaver-command -lock")
+                        ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command -lock")
                        ]
 
