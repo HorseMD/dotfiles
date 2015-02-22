@@ -164,7 +164,7 @@ General, built-in settings for Emacs.
 (setq show-paren-style 'expression)
 
 ;; cursor settings
-;; (global-hl-line-mode)
+(global-hl-line-mode)
 
 ;; font lock
 (global-font-lock-mode 1)
