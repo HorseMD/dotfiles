@@ -9,6 +9,10 @@ if [ -d ~/.cabal/bin ]; then
     export PATH=$PATH:~/.cabal/bin
 fi
 
+if [ -d ~/bin ]; then
+    export PATH=$PATH:~/bin
+fi
+
 shopt -s histappend
 export HISTCONTROL=ignoredups
 export HISTFILESIZE=10000
