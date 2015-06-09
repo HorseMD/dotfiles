@@ -35,7 +35,7 @@ Let's use use-package!
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
-  
+
   (eval-when-compile
     (require 'use-package))
 #+end_src
@@ -45,44 +45,48 @@ Let's use use-package!
 With =use-package=, we can easily and cleanly organise and configure plugins:
 
 #+begin_src emacs-lisp
-  (use-package web-mode 
-               :ensure t
-               :init (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
-  (use-package js2-mode 
-               :ensure t
-               :init (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
-  (use-package rainbow-delimiters 
-               :ensure t
-               :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))  
-  (use-package markdown-mode)
-  (use-package flycheck
-               :ensure
-               :init (add-hook 'prog-mode-hook 'flycheck-mode))
   (use-package json-mode)
   (use-package yaml-mode)
+  (use-package markdown-mode)
+  
+  (use-package web-mode
+    :ensure t
+    :init (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
+  (use-package js2-mode
+    :ensure t
+    :init (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
+  (use-package rainbow-delimiters
+    :ensure t
+    :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  (use-package flycheck
+    :ensure
+    :init (add-hook 'prog-mode-hook 'flycheck-mode))
   (use-package zencoding-mode
-               :init (add-hook 'web-mode-hook 'zencoding-mode))
-  (use-package paredit)
-  (use-package clojure-mode)
+    :init (add-hook 'sgml-mode-hook 'zencoding-mode))
+  (use-package paredit
+    :init (progn
+            (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+            (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)))
+  (use-package clojure-mode
+    :init (add-hook 'clojure-mode-hook 'enable-paredit-mode))
   (use-package cider
-               :config (setq cider-repl-result-prefix ";; => ")
-               :init (progn
-                       (add-hook 'cider-repl-mode-hook 'paredit-mode)
-                       (add-hook 'cider-mode-hook #'eldoc-mode)))
-  (use-package projectile
-               :config (projectile-global-mode))  
+    :config (setq cider-repl-result-prefix ";; => ")
+    :init (progn
+            (add-hook 'cider-repl-mode-hook 'paredit-mode)
+            (add-hook 'cider-mode-hook #'eldoc-mode)))
   (use-package smart-mode-line
-               :config (progn 
-                         (setq sml/no-confirm-load-theme t)
-                         (setq sml/theme 'dark)
-                         (sml/setup)))
+    :config (progn
+              (setq sml/no-confirm-load-theme t)
+              (setq sml/theme 'respectful)
+              (sml/setup)
+              (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/" ":dotfiles:") t)))
   (use-package zenburn
-               :ensure zenburn-theme
-               :init (load-theme 'zenburn 'no-confirm))
+    :ensure zenburn-theme
+    :init (load-theme 'zenburn 'no-confirm))
   (use-package git-gutter-fringe
-               :config (progn 
-                         (global-git-gutter-mode 1)
-                         (setq git-gutter:modified-sign "~")))
+    :config (progn
+              (global-git-gutter-mode 1)
+              (setq git-gutter:modified-sign "~")))
 #+end_src
 
 *** Misc
@@ -118,14 +122,6 @@ of those binaries.
 
 (when (executable-find "pandoc")
   (setq markdown-command "pandoc -f markdown -t html"))
-#+end_src
-
-** Configuration
-*** Add Hooks
-
-#+begin_src emacs-lisp
-(add-hook 'js-mode-hook 'flymake-jslint-load)
-(add-hook 'lisp-mode-hook 'enable-paredit-mode)
 #+end_src
 
 *** Keybindings
