@@ -87,6 +87,19 @@ With =use-package=, we can easily and cleanly organise and configure plugins:
     :config (progn
               (global-git-gutter-mode 1)
               (setq git-gutter:modified-sign "~")))
+  (use-package dynamic-fonts
+    :ensure t
+    :config (progn
+              (setq dynamic-fonts-preferred-monospace-fonts
+                    '("Fira Mono"
+                      "Inconsolata"
+                      "Droid Sans Mono"))
+              (setq dynamic-fonts-preferred-proportional-fonts
+                    '("Roboto"
+                      "Helvetica"
+                      "Verdana"
+                      "Arial"))
+              (dynamic-fonts-setup)))
 #+end_src
 
 *** Misc
