@@ -48,7 +48,7 @@ With =use-package=, we can easily and cleanly organise and configure plugins:
   (use-package json-mode)
   (use-package yaml-mode)
   (use-package markdown-mode)
-  
+
   (use-package web-mode
     :ensure t
     :init (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
@@ -82,7 +82,9 @@ With =use-package=, we can easily and cleanly organise and configure plugins:
               (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/" ":dotfiles:") t)))
   (use-package zenburn
     :ensure zenburn-theme
-    :init (load-theme 'zenburn 'no-confirm))
+    :init (progn
+            (load-theme 'zenburn 'no-confirm)
+            (set-background-color "#282828")))
   (use-package git-gutter-fringe
     :config (progn
               (global-git-gutter-mode 1)
@@ -188,4 +190,8 @@ General, built-in settings for Emacs.
 ;; re-enabled commands
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+;; set the window title to the buffer name
+(when window-system
+  (setq frame-title-format "Emacs: %b"))
 #+end_src
