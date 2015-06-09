@@ -90,6 +90,8 @@ With =use-package=, we can easily and cleanly organise and configure plugins:
   (use-package dynamic-fonts
     :ensure t
     :config (progn
+              (setq dynamic-fonts-preferred-monospace-point-size 11)
+              (setq dynamic-fonts-preferred-proportional-point-size 11)
               (setq dynamic-fonts-preferred-monospace-fonts
                     '("Fira Mono"
                       "Inconsolata"
