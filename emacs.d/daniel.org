@@ -91,7 +91,8 @@ With =use-package=, we can easily and cleanly organise and configure plugins:
   :ensure zenburn-theme
   :init (progn
           (load-theme 'zenburn 'no-confirm)
-          (set-background-color "#282828")))
+          (set-background-color "#282828")
+          (set-face-attribute 'region nil :background "#c6d4c5" :foreground "#444")))
 (use-package git-gutter-fringe
   :config (progn
             (global-git-gutter-mode 1)
