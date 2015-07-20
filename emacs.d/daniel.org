@@ -54,7 +54,12 @@ With =use-package=, we can easily and cleanly organise and configure plugins:
   :init (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
 (use-package js2-mode
   :ensure t
-  :init (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
+  :init (progn
+          (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+          (font-lock-add-keywords 'js2-mode
+                                  `(("\\(function *\\)("
+                                     (0 (progn
+                                          (compose-region (match-beginning 1) (match-end 1) "\u0192"))))))))
 (use-package rainbow-delimiters
   :ensure t
   :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
@@ -74,6 +79,8 @@ With =use-package=, we can easily and cleanly organise and configure plugins:
   :init (progn
           (add-hook 'cider-repl-mode-hook 'paredit-mode)
           (add-hook 'cider-mode-hook #'eldoc-mode)))
+(use-package expand-region
+  :init (global-set-key (kbd "C-=") 'er/expand-region))
 (use-package smart-mode-line
   :config (progn
             (setq sml/no-confirm-load-theme t)
@@ -84,7 +91,8 @@ With =use-package=, we can easily and cleanly organise and configure plugins:
   :ensure zenburn-theme
   :init (progn
           (load-theme 'zenburn 'no-confirm)
-          (set-background-color "#282828")))
+          (set-background-color "#282828")
+          (set-face-attribute 'region nil :background "#c6d4c5" :foreground "#444")))
 (use-package git-gutter-fringe
   :config (progn
             (global-git-gutter-mode 1)
