@@ -93,6 +93,11 @@ With =use-package=, we can easily and cleanly organise and configure plugins:
           (load-theme 'zenburn 'no-confirm)
           (set-background-color "#282828")
           (set-face-attribute 'region nil :background "#c6d4c5" :foreground "#444")))
+(use-package leuven-theme
+  :init (progn
+          (load-theme 'leuven 'noconfirm)
+          (set-face-attribute 'org-level-1 nil :height 130)
+          (set-face-attribute 'org-document-title nil :height 140)))
 (use-package git-gutter-fringe
   :config (progn
             (global-git-gutter-mode 1)
