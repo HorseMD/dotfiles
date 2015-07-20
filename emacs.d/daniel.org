@@ -157,19 +157,9 @@ of those binaries.
 (when (executable-find "pandoc")
   (setq markdown-command "pandoc -f markdown -t html"))
 #+end_src
-
-*** Keybindings
-
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-c C-d") 'delete-trailing-whitespace)
-(global-set-key (kbd "C-c C-a") 'org-agenda)
-
-(global-unset-key (kbd "C-z"))
-#+end_src
-
 ** Code
 
-Create a code header from the current line. Usage: call my-comment-header on the line you want
+Create a code header from the current line. Usage: call =my-comment-header= on the line you want
 to turn into a header.
 
 #+begin_src emacs-lisp
