@@ -105,6 +105,17 @@ With =use-package=, we can easily and cleanly organise and configure plugins:
                     "Verdana"
                     "Arial"))
             (dynamic-fonts-setup)))
+(use-package evil
+  :config (evil-mode t))
+#+end_src
+
+*** Load
+
+Load plugins that come built-in to Emacs.
+
+#+begin_src emacs-lisp
+(require 'hideshow)
+(add-hook 'prog-mode-hook 'hs-minor-mode)
 #+end_src
 
 *** Misc
@@ -121,7 +132,7 @@ Misc settings that should probably be somewhere else:
 (setq nrepl-log-messages t)
 #+end_src
 
-*** Extra Configuration
+*** Executables
 
 Sometimes we use Emacs on a computer that may not have certain binaries installed;
 this section is for the configuration of those sorts of things, based on the existence
@@ -135,10 +146,6 @@ of those binaries.
   (setq inferior-lisp-program (executable-find "clisp"))
   (setq slime-contribs '(slime-fancy)))
 
-(when (executable-find "gforth")
-  (unless (package-installed-p 'forth)
-    (load  "/usr/share/emacs/site-lisp/gforth/gforth.el")))
-
 (when (executable-find "pandoc")
   (setq markdown-command "pandoc -f markdown -t html"))
 #+end_src
@@ -151,6 +158,7 @@ of those binaries.
 
 (global-unset-key (kbd "C-z"))
 #+end_src
+
 
 ** Emacs Settings
 
