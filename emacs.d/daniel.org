@@ -159,7 +159,38 @@ of those binaries.
 (global-unset-key (kbd "C-z"))
 #+end_src
 
+** Code
 
+Create a code header from the current line. Usage: call my-comment-header on the line you want
+to turn into a header.
+
+#+begin_src emacs-lisp
+(defvar my-column-limiter 80)
+(defvar my-spacer-character ?_)
+
+(defun my-comment-header ()
+  (interactive)
+  (save-excursion
+    (move-beginning-of-line nil)
+    (set-mark-command nil)
+    (move-end-of-line nil)
+    (call-interactively 'comment-dwim)
+    (let*
+        ((comment-start-len (- (region-end) (region-beginning)))
+         (spacer-count (- (+ 1 my-column-limiter) comment-start-len)))
+      (insert-char my-spacer-character spacer-count))))
+#+end_src
+
+** Keybindings
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c C-d") 'delete-trailing-whitespace)
+(global-set-key (kbd "C-c C-a") 'org-agenda)
+
+(global-unset-key (kbd "C-z"))
+
+(global-set-key (kbd "C-c h") 'my-comment-header)
+#+end_src
 ** Emacs Settings
 
 General, built-in settings for Emacs.
