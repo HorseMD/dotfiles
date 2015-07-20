@@ -137,6 +137,10 @@ Misc settings that should probably be somewhere else:
 (setq org-agenda-files '("~/Documents/org/agenda"))
 (setq org-edit-src-content-indentation 0)
 
+;; Indent the text to the level of the heading. It makes it a lot easier to read.
+(require 'org-indent)
+(setq org-startup-indented t)
+
 (setq nrepl-log-messages t)
 #+end_src
 
@@ -217,6 +221,9 @@ General, built-in settings for Emacs.
 ;; use spaces, not tabs!
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
+
+;; display line numbers only when programming
+(add-hook 'prog-mode-hook (lambda () (linum-mode 1)))
 
 ;; fix minor annoyances
 (fset 'yes-or-no-p 'y-or-n-p)
